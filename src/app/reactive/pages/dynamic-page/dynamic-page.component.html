@@ -22,7 +22,8 @@
 
             <div class="input-group">
                 <input class="form-control"
-                       placeholder="Agregar favorito">
+                       placeholder="Agregar favorito"
+                       [formControlName]="favorite">
 
 
                 <button class="btn btn-outline-primary"
@@ -46,7 +47,8 @@
                     [formControlName]="i">
 
                     <button class="btn btn-outline-danger"
-                            type="button">
+                            type="button"
+                            (click)="onDeleteGame(i)">
                       Eliminar
                   </button>
                 </div>
