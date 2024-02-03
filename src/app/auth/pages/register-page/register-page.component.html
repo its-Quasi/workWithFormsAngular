@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col">
 
-        <form autocomplete="off">
+        <form [formGroup]="form" autocomplete="off">
 
             <!-- Nombre -->
             <div class="row mb-3">
@@ -12,7 +12,9 @@
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre del usuario">
+                           placeholder="Nombre del usuario"
+                           formControlName="name"
+                           >
 
                     <span class="form-text text-danger">
                         Debe de ser en formato de nombre y apellido
@@ -26,7 +28,8 @@
                 <div class="col-sm-9">
                     <input type="email"
                            class="form-control"
-                           placeholder="Email del usuario">
+                           placeholder="Email del usuario"
+                           formControlName="email">
                     <span class="form-text text-danger">
                         mensaje de error del email
                     </span>
@@ -39,7 +42,8 @@
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre código del usuario">
+                           placeholder="Nombre código del usuario"
+                           formControlName="username">
                     <span class="form-text text-danger">
                          El username no puede ser Strider
                     </span>
@@ -103,7 +107,7 @@
 <pre>{{ 'formulario' | json }}</pre>
 
 <h5>Username</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ form.controls['username'].errors| json }}</pre>
 
 
 <h5>Password</h5>
