@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ValidatorService } from 'src/app/shared/services/validator.service';
 
 
 type ValidFields = 'gender' | 'wantNotifications' | 'termsAndConditions'
@@ -11,22 +12,23 @@ type ValidFields = 'gender' | 'wantNotifications' | 'termsAndConditions'
 })
 export class SwitchPageComponent {
 
-  constructor(private fb : FormBuilder) {}
+  constructor(private fb: FormBuilder, private validator: ValidatorService) { }
 
   form = this.fb.group({
-    gender : ['M', Validators.required],
-    wantNotifications : [false, Validators.required],
-    termsAndConditions : [false, Validators.requiredTrue],
+    gender: ['M', Validators.required],
+    wantNotifications: [false, Validators.required],
+    termsAndConditions: [false, Validators.requiredTrue],
   })
 
   onSubmit() {
-    if(this.form.invalid) {
+    if (this.form.invalid) {
       this.form.markAllAsTouched()
       return
     }
     console.log(this.form.value)
   }
+  
   triggerErrors(field: ValidFields): boolean | null {
-    return this.form.controls[field].errors && this.form.controls[field].touched
+    return this.validator.isValidField(this.form, field)
   }
 }
