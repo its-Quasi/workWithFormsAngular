@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 type ValidFields = 'name' | 'favoriteGames'
 
@@ -8,7 +8,7 @@ type ValidFields = 'name' | 'favoriteGames'
 })
 export class DynamicPageComponent {
 
-  favorite = new FormControl(
+  newFavorite = new FormControl(
     '',
     [Validators.required, Validators.minLength(3)]
   )
@@ -56,17 +56,30 @@ export class DynamicPageComponent {
   }
   onSubmit() {
     if (this.form.invalid) return
-    console.log('Sending...')
+    console.log(this.form.value)
+    this.form.reset() // reset props of the form
+    this.form.controls['favoriteGames'].clear()
+
+    /**
+     * another way to delete all elements of the formArrays
+        const control = this.form.controls['favoriteGames'];
+        while (control.length > 0) control.removeAt(0)
+    */
   }
 
   onDeleteGame(index: number) {
     this.favoriteGames.removeAt(index);
   }
-  addFavoriteGame() : boolean {
-    if(this.favorite.invalid) {
-      return false;
+
+  addFavoriteGame(): void {
+    if (this.newFavorite.invalid) {
+      return;
     }
-    this.favoriteGames.push({})
-    return true;
+    const { value } = this.newFavorite
+    this.favoriteGames.push(
+      new FormControl(value, Validators.required)
+    )
+
+    this.newFavorite.reset()
   }
 }

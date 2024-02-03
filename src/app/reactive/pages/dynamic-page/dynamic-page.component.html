@@ -23,11 +23,12 @@
             <div class="input-group">
                 <input class="form-control"
                        placeholder="Agregar favorito"
-                       [formControlName]="favorite">
+                       [formControl]="newFavorite">
 
 
                 <button class="btn btn-outline-primary"
-                        type="button">
+                        type="button"
+                        (click)="addFavoriteGame()">
                     Agregar favorito
                 </button>
             </div>
@@ -45,7 +46,7 @@
                 <div class="input-group">
                     <input class="form-control"
                     [formControlName]="i">
-
+                    
                     <button class="btn btn-outline-danger"
                             type="button"
                             (click)="onDeleteGame(i)">
