@@ -45,5 +45,11 @@ export class RegisterPageComponent {
     ],
     password: ['', Validators.required],
     confirmation: ['', Validators.required],
-  })
+  },
+  {
+    validators : [
+      this.validator.equalsFields('password' , 'confirmation')
+    ]
+  }
+  )
 }
